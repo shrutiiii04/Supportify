@@ -1,0 +1,90 @@
+<% layout("/layouts/boilerplate") %>
+<head>
+    <link rel="stylesheet" href="/css/showListing.css">
+    <link rel="stylesheet" href="/css/rating.css">
+</head>
+<body>
+    <div class="container mt-3 pt-5 mb-4">
+        <div class="card shadow">
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image">
+            <div class="card-body">
+                <h2 class="card-title mb-3"><strong><%= listing.title %></strong></h2>
+                <ul class="list-unstyled mb-4">
+                    <li><strong>Owned by:</strong> <%= listing.owner.username %></li>
+                    <li><strong>Description:</strong> <%= listing.description %></li>
+                    <li><strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %></li>
+                    <li><strong>Location:</strong> <%= listing.location %></li>
+                    <li><strong>Country:</strong> <%= listing.country %></li>
+                    <li><strong>Email:</strong> <%= listing.contactDetails.email %></li>
+                    <li><strong>Phone:</strong> <%= listing.contactDetails.phone %></li>
+                </ul>
+                <!--the respected user will be able to delete and edit listings-->
+                <!-- <if(currUser && currUser._id.equals(listing.owner._id)) { %>-->
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">Edit Details</a>
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-dark">Delete listing</button>
+                </form>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=<%= listing.contactDetails.email %>&su=Inquiry about <%= listing.title %>&body=Hello <%= listing.owner.username %>,%0D%0A%0D%0AI am interested in your listing titled '<%= listing.title %>'.%0D%0A%0D%0AThank you." 
+                    target="_blank" 
+                    class="btn btn-success">Contact now</a>
+                 
+                <!--< } %>-->
+            </div>
+        </div>
+        <%if(currUser){%>
+        <hr>
+        <div class="card mt-5 shadow">
+            <div class="card-body">
+                <h2 class="card-title"><strong>Leave a Review for Property</strong></h2>
+                <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
+                     <div class="mb-3">
+                        <label for="rating" class="form-label"><strong>Rating</strong></label>
+                        <fieldset class="starability-grow">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                          </fieldset>
+                    </div> 
+                    <div class="mb-3">
+                        <textarea class="form-control" id="comment" name="review[comment]" rows="3" required></textarea>
+                        <div class="invalid-feedback">Please add comment for the review</div>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+            </div>
+        </div>
+        <% } %>
+        <hr>
+        <div class="review-list mt-3">
+            <h2 class="review-heading"><strong>Reviews</strong></h2>
+            <div class="row">
+                <% for(let i = 0; i < listing.reviews.length; i++) { %>
+                    <div class="col-md-6">
+                        <div class="card mb-4 shadow">
+                            <div class="card-body custom-star-rating">
+                                <p class="card-text author-name"><strong>@<%= listing.reviews[i].author.username %></strong></p>
+                                <div class="starability-result" data-rating="<%= listing.reviews[i].rating %>"></small></div>
+                                <br>
+                                <p class="card-text"><%= listing.reviews[i].comment %></p>
+                                <form action="/listings/<%= listing._id %>/reviews/<%= listing.reviews[i]._id %>?_method=DELETE" method="post" class="mt-2">
+                                    <button type="submit" class="btn btn-dark btn-sm">Delete Review</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <% if((i + 1) % 2 === 0) { %>
+                        <div class="w-100"></div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>

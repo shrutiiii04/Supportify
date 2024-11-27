@@ -1,0 +1,63 @@
+<% layout("/layouts/boilerplate") %>
+<head>
+    <link rel="stylesheet" href="/css/newListing.css"> 
+</head>
+<body>
+    <div class="container mt-2 pt-4">
+        <h1 class="text-center mb-4 stylish-heading">CREATE NEW LISTING</h1>
+        <div class="form-container mx-auto p-4 shadow">
+            <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Enter title</label>
+                    <input type="text" name="listing[title]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid title</div>
+                    <div class="valid-feedback">Title looks good!!</div>
+                </div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Enter description</label>
+                    <textarea name="listing[description]" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Please enter a description</div>
+                </div>
+                <!-- Image Upload -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload image</label>
+                    <input type="file" name="listing[image]" class="form-control">
+                </div>
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Enter price</label>
+                    <input type="number" name="listing[price]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid price</div>
+                </div>
+                <!-- Location and Country -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="location" class="form-label">Enter location</label>
+                        <input type="text" name="listing[location]" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid location</div>
+                    </div>
+                    <div class="col">
+                        <label for="country" class="form-label">Enter country</label>
+                        <input type="text" name="listing[country]" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid country</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="contact-email" class="form-label">Email</label>
+                        <input type="email" name="listing[contactDetails][email]" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                    </div>
+                    <div class="col">
+                        <label for="contact-phone" class="form-label">Phone</label>
+                        <input type="tel" name="listing[contactDetails][phone]" class="form-control" required pattern="^\d{10}$">
+                        <div class="invalid-feedback">Please enter a valid 10-digit phone number</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">CREATE</button>
+            </form>
+        </div>
+    </div>
+</body>

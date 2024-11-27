@@ -1,0 +1,67 @@
+/* General body styles to ensure form visibility */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for form with margin to avoid nav overlap */
+.container {
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+/* Form container styling */
+.form-container {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+}
+.stylish-heading {
+    font-family: 'Arial Black', sans-serif;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.stylish-heading i {
+    font-style: italic;
+    color: #f3161a; /* Adjust the color as needed */
+}
+
+/* Form input and label styling */
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: red;
+    border-color: #a20606;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #da1f25;
+    border-color: #b30000;
+}
+
+/* Add margin to avoid overlap */
+.mt-5 {
+    margin-top: 5rem !important;
+}
+
+.pt-5 {
+    padding-top: 5rem !important;
+}
